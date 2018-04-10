@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Apollo配置中心</title>
+    <title>Apollo Configuration Center</title>
     <link rel="icon" href="./img/config.png">
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="vendor/angular/angular-toastr-1.4.1.min.css">
@@ -22,7 +22,7 @@
             <img src="img/404.png">
             <br>
             <p>
-                <span ng-bind="pageContext.appId"></span> 不存在，<a href="/app.html">点击创建</a>
+                <span ng-bind="pageContext.appId"></span> does not exist, <a href="/app.html">Click to create </a>
             </p>
         </div>
 
@@ -34,9 +34,9 @@
                 <!--env list-->
                 <section class="panel">
                     <header class="panel-heading">
-                        环境列表
+                        Environment list
                         <span class="pull-right"
-                              data-tooltip="tooltip" data-placement="bottom" title="通过切换环境、集群来管理不同环境、集群的配置">
+                              data-tooltip="tooltip" data-placement="bottom" title="Manage environment and cluster configuration by switching environments and clusters">
                                     <img src="img/question.png" class="i-20"/>
                             </span>
                     </header>
@@ -47,22 +47,22 @@
                 <!--app info-->
                 <section class="panel">
                     <header class="panel-heading">
-                        项目信息
+                        Project information
                             <span class="pull-right">
 
                                 <a href="/app/setting.html?#/appid={{pageContext.appId}}"
                                    style="margin-right: 5px;text-decoration:none;">
                                     <img src="img/edit.png" class="i-20 cursor-pointer"
-                                         data-tooltip="tooltip" data-placement="bottom" title="修改项目基本信息"/>
+                                         data-tooltip="tooltip" data-placement="bottom" title="Modify project basic information"/>
                                 </a>
 
                                 <img src="img/unlike.png" class="i-20 cursor-pointer"
                                      ng-if="!favoriteId" ng-click="addFavorite()"
-                                     data-tooltip="tooltip" data-placement="bottom" title="收藏"/>
+                                     data-tooltip="tooltip" data-placement="bottom" title="Collection"/>
 
                                 <img src="img/like.png" class="i-20 cursor-pointer"
                                      ng-if="favoriteId" ng-click="deleteFavorite()"
-                                     data-tooltip="tooltip" data-placement="bottom" title="取消收藏"/>
+                                     data-tooltip="tooltip" data-placement="bottom" title="Uncollect"/>
                             </span>
                     </header>
                     <div class="panel-body">
@@ -73,27 +73,27 @@
                                 <td ng-bind="appBaseInfo.appId"></td>
                             </tr>
                             <tr>
-                                <th>应用名:</th>
+                                <th>Application name:</th>
                                 <td>
                                     <small ng-bind="appBaseInfo.name"></small>
                                 </td>
                             </tr>
                             <tr>
-                                <th>部门:</th>
+                                <th>department:</th>
                                 <td ng-bind="appBaseInfo.orgInfo"></td>
                             </tr>
                             <tr>
-                                <th>负责人:</th>
+                                <th>principal:</th>
                                 <td ng-bind="appBaseInfo.ownerName"></td>
                             </tr>
                             <tr>
-                                <th>邮箱:</th>
+                                <th>mailbox:</th>
                                 <td>
                                     <small ng-bind="appBaseInfo.ownerEmail"></small>
                                 </td>
                             </tr>
                             <tr ng-show="missEnvs.length > 0">
-                                <th>缺失的环境:</th>
+                                <th>Missing environment:</th>
                                 <td>
                                 <span ng-repeat="env in missEnvs" ng-bind="env">
                                 </span>
@@ -123,7 +123,7 @@
                     <div class="list-group-item cursor-pointer hover" ng-click="showMasterPermissionTips()"
                          ng-show="!hasCreateClusterPermission">
                         <div class="row icon-text icon-plus-orange">
-                            <p class="btn-title">添加集群</p>
+                            <p class="btn-title">Add a cluster </p>
                         </div>
                     </div>
 
@@ -134,7 +134,7 @@
                     <div class="list-group-item cursor-pointer hover" ng-click="showMasterPermissionTips()"
                          ng-show="!hasCreateNamespacePermission">
                         <div class="row icon-text icon-plus-orange">
-                            <p class="btn-title">添加Namespace</p>
+                            <p class="btn-title">Add Namespace</p>
                         </div>
                     </div>
 
@@ -152,38 +152,39 @@
          ng-controller="ConfigNamespaceController">
 
         <h4 class="text-center" ng-show="viewMode == 2">
-            当前操作环境:{{pageContext.env}}， 集群:{{pageContext.clusterName}}
+            Current operating environment:{{pageContext.env}}， Cluster:{{pageContext.clusterName}}
         </h4>
         <div class="alert alert-info alert-dismissible" role="alert"
              ng-show="(!hideTip || !hideTip[pageContext.appId][pageContext.clusterName]) && envMapClusters[pageContext.env]">
 
             <button class="btn btn-sm btn-default pull-right" style="margin-top: -7px;margin-right:-15px;"
-                    ng-click="closeTip(pageContext.clusterName)">不再提示
+                    ng-click="closeTip(pageContext.clusterName)">Do not remind again
             </button>
 
             <!--default cluster tip -->
             <div ng-show="pageContext.clusterName == 'default'">
-                <strong>注意: </strong>所有不属于
+                <strong>note: </strong>All do not belong
                 <span ng-bind="envMapClusters[pageContext.env]"></span>
-                集群的实例会使用default集群（当前页面）的配置，属于
+                An instance of the cluster will use the configuration of the default cluster (current page), belonging to
                 <span ng-bind="envMapClusters[pageContext.env]"></span>
-                的实例会使用对应集群的配置！
+                The instance will use the corresponding cluster configuration!
             </div>
 
             <!--custom cluster tip-->
             <div ng-show="pageContext.clusterName != 'default'">
-                <strong>注意:</strong>属于
+                <strong>note:</strong>belong
                 <span ng-bind="pageContext.clusterName"></span>
-                集群的实例只会使用
+                Instances of the cluster will only use
                 <span ng-bind="pageContext.clusterName"></span>
-                集群（当前页面）的配置，只有当对应namespace在当前集群没有发布过配置时，才会使用default集群的配置。
+                The configuration of the cluster (current page) uses the configuration of the default cluster only if the corresponding namespace has not been configured in the current cluster.
             </div>
 
         </div>
 
         <div class="alert alert-info"
              ng-if="hasNotPublishNamespace">
-            <p><b>注意:</b> 以下环境/集群有未发布的配置，客户端获取不到未发布的配置，请及时发布。</p>
+            <p><b>note:</b> The following environments/clusters have unpublished configurations. Clients cannot obtain unpublished configurations. Please release them in a timely manner.
+            </p>
             <p>
                 <mark ng-bind="namespacePublishInfo.join('，')"></mark>
             </p>
@@ -318,23 +319,24 @@
                         <h4 class="modal-title">创建灰度须知</h4>
                     </div>
                     <div class="modal-body">
-                        通过创建灰度版本，您可以对某些配置做灰度测试<br>
-                        灰度流程为:<br>
-                        &nbsp;&nbsp;1.创建灰度版本 <br>
-                        &nbsp;&nbsp;2.配置灰度配置项<br>
-                        &nbsp;&nbsp;3.配置灰度规则.如果是私有的namespace可以按照客户端的IP进行灰度，如果是公共的namespace则可以同时按AppId和客户端的IP进行灰度<br>
-                        &nbsp;&nbsp;4.灰度发布<br>
-                        灰度版本最终有两种结果:<b>全量发布和放弃灰度</b><br>
-                        <b>全量发布</b>:灰度的配置合到主版本并发布，所有的客户端都会使用合并后的配置<br>
-                        <b>放弃灰度</b>:删除灰度版本，所有的客户端都会使用回主版本的配置<br>
-                        注意事项:<br>
-                        &nbsp;&nbsp;1.如果灰度版本已经有灰度发布过，那么修改灰度规则后，无需再次灰度发布就立即生效<br>
+                        By creating a grayscale version, you can do a grayscale test on some configurations <br>
+                         The grayscale flow is:<br>
+                        &nbsp;&nbsp;1.Create a grayscale version<br>
+                        &nbsp;&nbsp;2.Configure grayscale configuration items <br>
+                        &nbsp;&nbsp;3.Configure the gray rules. If the private namespace can be grayscale according to the client's IP, if it is a public namespace, you can use the AppId and the client's IP to grayscale.<br>
+                        &nbsp;&nbsp;4.Grayscale publishing<br>
+                        Grayscale version has two final results:<b>Full release and abandon grayscale</b><br>
+                        <b>Full release</b>:The grayscale configuration is merged into the main version and published, all clients will use the merged configuration<br>
+                        <b>Give up grayscale</b>:Delete grayscale version, all clients will use back to the main version of the configuration<br>
+                        Precautions:<br>
+                        &nbsp;&nbsp;1.If the grayscale version has already been published in grayscale, then after modifying the grayscale rule, it will take effect immediately without releasing the grayscale again.
+                        <br>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal"
                                 ng-click="createBranch()">
-                            确定
+                                determine
                         </button>
                     </div>
                 </div>
